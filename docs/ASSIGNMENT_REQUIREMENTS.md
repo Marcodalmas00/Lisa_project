@@ -151,6 +151,20 @@ Based on notebooks currently stored in `resources/professor_notebook`. This is a
 - Use suitable metrics such as precision, recall, F1, ROC-AUC, PR-AUC.
 - Discuss business impact of **false positives** and **false negatives**.
 
+### Dataset description (Kaggle "About Dataset" to include in notebook intro)
+
+- Business context: fraud detection is needed to prevent customers from being charged for transactions they did not make.
+- Scope: transactions by European cardholders in September 2013.
+- Time window represented: two days of transactions.
+- Dataset size: **284,807** transactions total.
+- Positive class count: **492** frauds.
+- Imbalance level: fraud prevalence about **0.172%**.
+- Feature structure:
+  - `V1`-`V28`: anonymized PCA components
+  - `Time`, `Amount`: not PCA-transformed
+  - `Class`: target (`1` fraud, `0` legitimate)
+- Evaluation recommendation from dataset description: prioritize **AUPRC / PR-AUC** over plain accuracy in this imbalanced setting.
+
 ### Required analysis focus for this track
 
 - Quantify target imbalance early (class ratio, baseline prevalence).
@@ -190,8 +204,31 @@ Based on notebooks currently stored in `resources/professor_notebook`. This is a
 
 ### Data location (local project)
 
-- Expected notebook-ready dataset path should be documented when confirmed (CSV not yet detected in repository scan at edit time).
+- Local dataset file detected in project root: `creditcard.csv`.
+- Notebook should use a reproducible path-loading strategy (e.g., relative path from notebook location) and print shape/check columns after load.
 - If data is loaded externally, notebook must include explicit and reproducible download/load steps.
+
+### Community discussion insights (non-binding, use critically)
+
+Use these as ideas to test, not as truth to copy:
+
+- Strong recurring warning: **accuracy paradox** on extreme imbalance; accuracy-only reporting is misleading.
+- Confusion matrix must be interpreted together with fraud-focused metrics (`precision`, `recall`, `F1`, `PR-AUC`), not in isolation.
+- Common practical suggestions worth testing:
+  - class weighting (`class_weight='balanced'` or equivalent),
+  - threshold tuning,
+  - boosted tree models (e.g., XGBoost/LightGBM) for tabular data.
+- Preprocessing reminder from discussion aligns with dataset structure: evaluate treatment/scaling of `Time` and `Amount` because they are not PCA features.
+- Do **not** claim external discussion results as project results; reproduce locally and cite as inspiration only.
+
+### Additional discussion signals to test in our notebook
+
+Treat these as explicit hypotheses for EDA and validation:
+
+- **`Amount == 0` hypothesis:** check frequency and fraud rate among zero-amount transactions vs non-zero transactions; report whether this segment carries signal or noise.
+- **Tree-model overfitting risk:** for decision trees / tree ensembles, control complexity (e.g., depth, min samples per leaf/split) and compare train-vs-validation behavior.
+- **Split policy:** use a stratified split strategy so minority-class prevalence is preserved across train/validation/test; avoid random split without stratification.
+- **Feature engineering stance:** because many predictors are already PCA-transformed, keep feature engineering targeted and justified (do not add transformations without measurable benefit).
 
 **Deadlines:** see [Submission (Moodle)](#submission-moodle)—session-specific cutoff is **day before exam** except the **June 14, 2026** first deadline.
 
@@ -215,3 +252,4 @@ Based on notebooks currently stored in `resources/professor_notebook`. This is a
 | 2026-05-05 | Added current professor-notebook baseline (available notebooks, taught libraries/methods, and rule for justified extension beyond baseline). |
 | 2026-05-05 | Added Track 2 specific requirements: fraud objective, imbalance/cost-sensitive evaluation, mandatory model comparison, threshold and error-analysis emphasis, and stronger-quality execution standards. |
 | 2026-05-05 | Added planned 3-model strategy: interpretable baseline, course-aligned strong model, and advanced out-of-course model with explicit justification and fair-comparison protocol. |
+| 2026-05-05 | Added Kaggle dataset-description facts (context, structure, class imbalance, AUPRC emphasis), updated local data location to `creditcard.csv`, and added community-discussion insights as non-binding guardrails. |
