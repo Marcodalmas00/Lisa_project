@@ -215,3 +215,5 @@ Based on notebooks currently stored in `resources/professor_notebook`. This is a
 | 2026-05-05 | Added current professor-notebook baseline (available notebooks, taught libraries/methods, and rule for justified extension beyond baseline). |
 | 2026-05-05 | Added Track 2 specific requirements: fraud objective, imbalance/cost-sensitive evaluation, mandatory model comparison, threshold and error-analysis emphasis, and stronger-quality execution standards. |
 | 2026-05-05 | Added planned 3-model strategy: interpretable baseline, course-aligned strong model, and advanced out-of-course model with explicit justification and fair-comparison protocol. |
+
+ciao matilde
