@@ -121,4 +121,4 @@ Strategia spesso più realistica che pretendere da **un solo** modello tutto per
 
 
 
-"Il modello trova il 75–80% dei casi positivi, e tra i casi che segnala 1 su 3 / 1 su 2 è davvero positivo."
+"Il modello trova il 75–80% dei casi positivi, e tra i casi che segnala 1 su 3 / 1 su 2 è davvero positivo." 
